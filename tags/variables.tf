@@ -22,19 +22,3 @@ variable "name" {
   type        = string
   description = "The name of the resource"
 }
-
-variable "test-aaaaa" {
-  type        = string
-  description = "The name of the resource"
-}
-
-
-variable "test-bbb" {
-  type        = string
-  description = "The name of the resource"
-}
-
-variable "test-ccc" {
-  type        = string
-  description = "The name of the resource"
-}
