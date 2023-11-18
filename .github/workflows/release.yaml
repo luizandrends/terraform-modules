@@ -3,7 +3,7 @@ name: Modules PR Workflow
 on:
   pull_request:
     paths:
-      - modules/**
+      - tags/**
 
 permissions:
   pull-requests: write
