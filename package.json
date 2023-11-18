@@ -1,0 +1,12 @@
+{
+  "name": "terraform-modules",
+  "private": true,
+  "release": {
+    "branches": [
+      "main"
+    ]
+  },
+  "devDependencies": {
+    "semantic-release": "^22.0.8"
+  }
+}

@@ -42,3 +42,7 @@ terraform.rc
 
 #DS_STORE
 .DS_Store
+
+# Semanthic versioning
+package-lock.json
+node_modules
