@@ -38,7 +38,6 @@ locals {
   team        = lower(trimspace(var.team))
   aws_object  = lower(trimspace(var.aws_object))
 
-
   default_name = "aws-${local.aws_object}-${var.name}-${local.aws_region}-${local.environment_options[local.environment]}"
 
   default_tags = {
