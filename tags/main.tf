@@ -47,5 +47,4 @@ locals {
     team        = local.team
     Name        = local.default_name
   }
-
 }
