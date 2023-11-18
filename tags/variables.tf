@@ -28,9 +28,3 @@ variable "workflow-test" {
   description = "The name of the resource"
   default     = null
 }
-
-variable "another-workflow-variable" {
-  type        = string
-  description = "The name of the resource"
-  default     = null
-}
