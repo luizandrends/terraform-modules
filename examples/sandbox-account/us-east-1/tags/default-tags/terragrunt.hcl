@@ -4,6 +4,9 @@ locals {
   application_tags = {
     aws_object = "lambda"
     application = "some-sandbox-lambda"
+    additional_tags = {
+      some-key = "some-value"
+    }
   }
 }
 
