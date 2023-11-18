@@ -1,36 +1,21 @@
 name: Release
-
-on:
-  workflow_dispatch:
+"on":
   push:
     branches:
       - main
-      - master
-    paths:
-      - "**/*.tpl"
-      - "**/*.py"
-      - "**/*.tf"
-      - ".github/workflows/release.yml"
 
 jobs:
   release:
-    name: Release
+    name: release
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          persist-credentials: false
-          fetch-depth: 0
-
-      - name: Release
-        uses: cycjimmy/semantic-release-action@v3
-        with:
-          semantic_version: 18.0.0
-          extra_plugins: |
-            @semantic-release/changelog@6.0.0
-            @semantic-release/git@10.0.0
-            conventional-changelog-conventionalcommits@4.6.3
+          cache: npm
+          node-version: 16
+      - run: npm ci
+      - run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
