@@ -22,3 +22,9 @@ variable "name" {
   type        = string
   description = "The name of the resource"
 }
+
+variable "additional_tags" {
+  type        = map(any)
+  default     = {}
+  description = "A map containing additional tags"
+}

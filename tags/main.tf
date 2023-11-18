@@ -40,10 +40,12 @@ locals {
 
   default_name = "aws-${local.aws_object}-${var.name}-${local.aws_region}-${local.environment_options[local.environment]}"
 
-  default_tags = {
+  tags = {
     environment = local.environment_options[local.environment]
     application = local.application
     team        = local.team
     Name        = local.default_name
   }
+
+  default_tags = merge(local.tags, var.additional_tags)
 }
