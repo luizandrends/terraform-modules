@@ -1,35 +1,37 @@
-name: Release
+name: GitHub Release
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
-      - master
-    paths:
-      - "**/*.tpl"
-      - "**/*.py"
-      - "**/*.tf"
-      - ".github/workflows/release.yml"
 
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  # This workflow contains a single job called "build"
   release:
-    name: Release
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          persist-credentials: false
-          fetch-depth: 0
 
-      - name: Release
-        uses: cycjimmy/semantic-release-action@v3
+    permissions:
+      contents: write
+      issues: read
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3.7.0
         with:
-          semantic_version: 18.0.0
-          extra_plugins: |
-            @semantic-release/changelog@6.0.0
-            @semantic-release/git@10.0.0
-            conventional-changelog-conventionalcommits@4.6.3
+          # Version Spec of the version to use. Examples: 12.x, 10.15.1, >=10.15.0.
+          node-version: 18.x # optional
+
+      - name: Install Semantic Release and plugins
+        run: |
+          npm install semantic-release @semantic-release/exec @semantic-release/changelog @semantic-release/github
+
+      - name: Create Release
+        run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUBPERSONALTOKEN}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
