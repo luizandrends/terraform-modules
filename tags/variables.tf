@@ -23,7 +23,7 @@ variable "name" {
   description = "The name of the resource"
 }
 
-variable "test" {
+variable "test-aaaaa" {
   type        = string
   description = "The name of the resource"
 }
