@@ -23,7 +23,7 @@ inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
       "effect": "Allow",
       "principals": {
         "AWS": [
-          "arn:aws:iam::035267315123:role/service-role/alfred-lambda-terraform-role-7c99x1yj"
+          "arn:aws:iam::accountid:role/role-name"
         ]
       },
       "actions": ["sns:Publish"],
