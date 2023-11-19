@@ -3,7 +3,7 @@ locals {
 }
 
 module "tags" {
-  source = "git@github.com:luizandrends/terraform-modules.git//tags?ref=v1.2.0"
+  source = "git@github.com:luizandrends/terraform-modules.git//tags?ref=v1.5.0"
 
   name            = var.name
   environment     = var.environment
