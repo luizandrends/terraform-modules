@@ -45,6 +45,7 @@ locals {
     application = local.application
     team        = local.team
     Name        = local.default_name
+    managed_by  = "terraform"
   }
 
   default_tags = merge(local.tags, var.additional_tags)
