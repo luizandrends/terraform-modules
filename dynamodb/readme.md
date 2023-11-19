@@ -12,7 +12,7 @@ No requirements.
 
 | Name                                            | Source                                                  | Version |
 | ----------------------------------------------- | ------------------------------------------------------- | ------- |
-| <a name="module_tags"></a> [tags](#module_tags) | git@github.com:luizandrends/terraform-modules.git//tags | v1.1.0  |
+| <a name="module_tags"></a> [tags](#module_tags) | git@github.com:luizandrends/terraform-modules.git//tags | v1.5.0  |
 
 ## Resources
 
