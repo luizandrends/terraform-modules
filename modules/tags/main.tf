@@ -38,7 +38,11 @@ locals {
   team        = lower(trimspace(var.team))
   aws_object  = lower(trimspace(var.aws_object))
 
-  default_name = "aws-${local.aws_object}-${var.name}-${local.aws_region}-${local.environment_options[local.environment]}"
+  default_name                 = "aws-${local.aws_object}-${var.name}-${local.aws_region}-${local.environment_options[local.environment]}"
+  default_vpc_sg_name          = "aws-sg-${var.name}-${local.aws_region}-${local.environment_options[local.environment]}"
+  default_vpc_subnet_name      = "aws-subnet-${var.name}-${local.aws_region}-${local.environment_options[local.environment]}"
+  default_vpc_route_table_name = "aws-rt-${var.name}-${local.aws_region}-${local.environment_options[local.environment]}"
+
 
   tags = {
     environment = local.environment_options[local.environment]
@@ -48,5 +52,32 @@ locals {
     managed_by  = "terraform"
   }
 
-  default_tags = merge(local.tags, var.additional_tags)
+  vpc_sg_tags = {
+    environment = local.environment_options[local.environment]
+    application = local.application
+    team        = local.team
+    Name        = local.default_vpc_sg_name
+    managed_by  = "terraform"
+  }
+
+  vpc_subnet_tags = {
+    environment = local.environment_options[local.environment]
+    application = local.application
+    team        = local.team
+    Name        = local.default_vpc_subnet_name
+    managed_by  = "terraform"
+  }
+
+  vpc_rt_tags = {
+    environment = local.environment_options[local.environment]
+    application = local.application
+    team        = local.team
+    Name        = local.default_vpc_route_table_name
+    managed_by  = "terraform"
+  }
+
+  default_tags            = merge(local.tags, var.additional_tags)
+  default_vpc_sg_tags     = merge(local.vpc_sg_tags, var.additional_tags)
+  default_vpc_subnet_tags = merge(local.vpc_subnet_tags, var.additional_tags)
+  default_vpc_rt_tags     = merge(local.vpc_rt_tags, var.additional_tags)
 }
