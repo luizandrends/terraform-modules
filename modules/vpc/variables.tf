@@ -29,6 +29,12 @@ variable "additional_tags" {
   description = "A map containing additional tags"
 }
 
+variable "private_subnet_additional_tags" {
+  type        = map(any)
+  default     = {}
+  description = "A map containing private subnet additional tags"
+}
+
 variable "create_vpc" {
   description = "Controls if VPC should be created (it affects almost all resources)"
   type        = bool
@@ -73,6 +79,12 @@ variable "default_security_group_ingress" {
 
 variable "default_security_group_egress" {
   description = "List of maps of egress rules to set on the default security group"
+  type        = list(map(string))
+  default     = []
+}
+
+variable "private_subnets" {
+  description = "List of maps of VPC's subnets to associate"
   type        = list(map(string))
   default     = []
 }
