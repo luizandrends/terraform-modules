@@ -11,7 +11,7 @@ locals {
 }
 
 terraform {
-  source = "../../../../../sns"
+  source = "../../../../../modules/sns"
 }
 
 inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
