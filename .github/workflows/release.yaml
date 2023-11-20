@@ -44,5 +44,4 @@ jobs:
         with:
           working-dir: modules/
           recursive: true
-          recursive-path: modules
           output-file: readme.md
