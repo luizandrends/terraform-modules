@@ -7,6 +7,7 @@ on:
       - "**/*.tpl"
       - "**/*.py"
       - "**/*.tf"
+      - "**/*.md"
       - ".github/workflows/release.yml"
 jobs:
   release:
@@ -42,3 +43,5 @@ jobs:
         uses: terraform-docs/gh-actions@v1.0.0
         with:
           working-dir: .,**/*
+          output-file: README.md
+          output-method: inject
