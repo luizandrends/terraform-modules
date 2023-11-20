@@ -46,5 +46,3 @@ terraform.rc
 # Semanthic versioning
 package-lock.json
 node_modules
-
-#Test workflow
