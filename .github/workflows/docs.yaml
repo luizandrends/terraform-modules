@@ -24,7 +24,6 @@ jobs:
         uses: terraform-docs/gh-actions@main
         id: tfdocs
         with:
-          config-file: terraform-docs.yaml
           working-dir: ./modules
           output-file: readme.md
           output-method: inject
