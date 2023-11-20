@@ -110,7 +110,6 @@ No requirements.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_aaaabbbbccccddddffff"></a> [aaaabbbbccccddddffff](#input\_aaaabbbbccccddddffff) | A map of subscription definitions to create | `any` | `{}` | no |
 | <a name="input_additional_tags"></a> [additional\_tags](#input\_additional\_tags) | A map containing additional tags | `map(any)` | `{}` | no |
 | <a name="input_application"></a> [application](#input\_application) | The application that owns the resource | `string` | n/a | yes |
 | <a name="input_aws_object"></a> [aws\_object](#input\_aws\_object) | he resource identifier, ex: ec2, s3, rds, etc... | `string` | n/a | yes |
