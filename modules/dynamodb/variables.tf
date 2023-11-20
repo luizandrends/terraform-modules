@@ -164,3 +164,9 @@ variable "timeouts" {
     delete = "10m"
   }
 }
+
+variable "teste_docs" {
+  description = "Configurations for importing s3 data into a new table."
+  type        = any
+  default     = {}
+}
