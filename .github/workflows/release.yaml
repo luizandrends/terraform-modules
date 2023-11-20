@@ -42,5 +42,7 @@ jobs:
       - name: Render terraform docs inside the readme.md
         uses: terraform-docs/gh-actions@v1.0.0
         with:
-          find-dir: ./modules
+          working-dir: modules/
+          recursive: true
+          recursive-path: modules
           output-file: readme.md
