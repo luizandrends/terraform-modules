@@ -10,7 +10,7 @@ on:
       - ".github/workflows/docs.yml"
 
 jobs:
-  tfdocs:
+  terraform-docs:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
