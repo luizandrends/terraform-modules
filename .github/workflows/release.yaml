@@ -32,16 +32,3 @@ jobs:
         run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  terraform-docs:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          ref: master
-      - name: Render terraform docs inside the readme.md
-        uses: terraform-docs/gh-actions@v1.0.0
-        with:
-          find-dir: modules/**
-          recursive: true
-          output-file: readme.md
