@@ -3,6 +3,11 @@ on:
   push:
     branches:
       - master
+    paths:
+      - "**/*.tpl"
+      - "**/*.py"
+      - "**/*.tf"
+      - ".github/workflows/release.yml"
 jobs:
   release:
     runs-on: ubuntu-latest
