@@ -112,7 +112,6 @@ No requirements.
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_tags"></a> [additional\_tags](#input\_additional\_tags) | A map containing additional tags | `map(any)` | `{}` | no |
 | <a name="input_application"></a> [application](#input\_application) | The application that owns the resource | `string` | n/a | yes |
-| <a name="input_aws_object"></a> [aws\_object](#input\_aws\_object) | he resource identifier, ex: ec2, s3, rds, etc... | `string` | n/a | yes |
 | <a name="input_content_based_deduplication"></a> [content\_based\_deduplication](#input\_content\_based\_deduplication) | Enables content-based deduplication for FIFO queues | `bool` | `null` | no |
 | <a name="input_create"></a> [create](#input\_create) | Whether to create SQS queue | `bool` | `true` | no |
 | <a name="input_create_dlq"></a> [create\_dlq](#input\_create\_dlq) | Whether to create SQS DLQ | `bool` | `false` | no |

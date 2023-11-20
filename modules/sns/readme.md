@@ -83,7 +83,6 @@ No requirements.
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_tags"></a> [additional\_tags](#input\_additional\_tags) | A map containing additional tags | `map(any)` | `{}` | no |
 | <a name="input_application"></a> [application](#input\_application) | The application that owns the resource | `string` | n/a | yes |
-| <a name="input_aws_object"></a> [aws\_object](#input\_aws\_object) | he resource identifier, ex: ec2, s3, rds, etc... | `string` | n/a | yes |
 | <a name="input_content_based_deduplication"></a> [content\_based\_deduplication](#input\_content\_based\_deduplication) | Boolean indicating whether or not to enable content-based deduplication for FIFO topics. | `bool` | `false` | no |
 | <a name="input_create_topic"></a> [create\_topic](#input\_create\_topic) | Determines whether resources will be created (affects all resources) | `bool` | `true` | no |
 | <a name="input_delivery_policy"></a> [delivery\_policy](#input\_delivery\_policy) | The SNS delivery policy | `string` | `null` | no |
