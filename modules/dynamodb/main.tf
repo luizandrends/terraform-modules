@@ -1,5 +1,5 @@
 module "tags" {
-  source = "git@github.com:luizandrends/terraform-modules.git//tags?ref=v1.5.0"
+  source = "git@github.com:luizandrends/terraform-modules.git//modules/tags?ref=v1.9.0"
 
   name            = var.name
   environment     = var.environment
