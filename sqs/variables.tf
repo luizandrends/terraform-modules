@@ -191,7 +191,7 @@ variable "subscriptions" {
   default     = {}
 }
 
-variable "testingworkflow3" {
+variable "testingworkflow4" {
   description = "A map of subscription definitions to create"
   type        = any
   default     = {}
