@@ -15,7 +15,7 @@ locals {
 }
 
 module "tags" {
-  source = "git@github.com:luizandrends/terraform-modules.git//modules/tags?ref=v1.8.0"
+  source = "git@github.com:luizandrends/terraform-modules.git//modules/tags?ref=v1.9.0"
 
   name            = var.name
   environment     = var.environment
@@ -26,7 +26,7 @@ module "tags" {
 }
 
 module "private_subnet_tags" {
-  source = "git@github.com:luizandrends/terraform-modules.git//modules/tags?ref=v1.8.0"
+  source = "git@github.com:luizandrends/terraform-modules.git//modules/tags?ref=v1.9.0"
 
   name            = "${var.name}-private"
   environment     = var.environment

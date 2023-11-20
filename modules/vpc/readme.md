@@ -13,8 +13,8 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_private_subnet_tags"></a> [private\_subnet\_tags](#module\_private\_subnet\_tags) | git@github.com:luizandrends/terraform-modules.git//modules/tags | v1.8.0 |
-| <a name="module_tags"></a> [tags](#module\_tags) | git@github.com:luizandrends/terraform-modules.git//modules/tags | v1.8.0 |
+| <a name="module_private_subnet_tags"></a> [private\_subnet\_tags](#module\_private\_subnet\_tags) | git@github.com:luizandrends/terraform-modules.git//modules/tags | v1.9.0 |
+| <a name="module_tags"></a> [tags](#module\_tags) | git@github.com:luizandrends/terraform-modules.git//modules/tags | v1.9.0 |
 
 ## Resources
 
