@@ -191,7 +191,7 @@ variable "subscriptions" {
   default     = {}
 }
 
-variable "aaaabbbbcccc" {
+variable "aaaabbbbccccdddd" {
   description = "A map of subscription definitions to create"
   type        = any
   default     = {}
