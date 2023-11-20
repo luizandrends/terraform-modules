@@ -6,8 +6,6 @@ locals {
   dlq_kms_master_key_id = try(coalesce(var.dlq_kms_master_key_id, var.kms_master_key_id), null)
 
   dlq_sqs_managed_sse_enabled = coalesce(var.dlq_sqs_managed_sse_enabled, var.sqs_managed_sse_enabled)
-
-  arn_array_with_dlq = ["${aws_sqs_queue.this[0].arn}", "${aws_sqs_queue.dead_letter_queue[0].arn}"]
 }
 
 
