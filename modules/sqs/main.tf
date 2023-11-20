@@ -8,7 +8,6 @@ locals {
   dlq_sqs_managed_sse_enabled = coalesce(var.dlq_sqs_managed_sse_enabled, var.sqs_managed_sse_enabled)
 }
 
-
 module "tags" {
   source = "git@github.com:luizandrends/terraform-modules.git//tags?ref=v1.5.0"
 
