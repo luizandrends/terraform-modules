@@ -42,6 +42,6 @@ jobs:
       - name: Render terraform docs inside the readme.md
         uses: terraform-docs/gh-actions@v1.0.0
         with:
-          working-dir: ./
+          working-dir: ./*
           output-file: README.md
           output-method: inject
