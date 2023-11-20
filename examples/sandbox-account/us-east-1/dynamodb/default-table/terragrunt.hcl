@@ -8,7 +8,7 @@ locals {
 }
 
 terraform {
-  source = "../../../../../dynamodb"
+  source = "../../../../../modules/dynamodb"
 }
 
 inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
