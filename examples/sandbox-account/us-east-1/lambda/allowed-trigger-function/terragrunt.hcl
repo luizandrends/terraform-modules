@@ -25,17 +25,17 @@ inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
   triggers = [
     {
       sid        = "AllowS3Invoke"
-      source_arn = "arn:aws:s3:::s3-trigger-test-035267315123"
+      source_arn = ""
       principal  = "s3"
     },
     {
       sid        = "AllowSNSInvoke"
-      source_arn = "arn:aws:sns:us-east-1:035267315123:alfred-sns-terraform"
+      source_arn = ""
       principal  = "sns"
     },
     {
       sid        = "AllowSQSInvoke"
-      source_arn = "arn:aws:sqs:us-east-1:035267315123:alfred-sqs-terraform"
+      source_arn = ""
       principal  = "sqs"
     }
   ]
