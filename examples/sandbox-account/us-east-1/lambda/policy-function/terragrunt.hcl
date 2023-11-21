@@ -17,10 +17,6 @@ dependency "sqs_default_queue" {
   config_path = "../../sqs/default-queue"
 }
 
-dependency "sns_default_topic" {
-  config_path = "../../sns/default-topic"
-}
-
 inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
   name = "policy-function"
 
@@ -29,14 +25,6 @@ inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
   runtime     = "nodejs18.x"
   timeout     = 15
   filename    = "./lambda-code.zip"
-
-  lambda_permissions = [
-    {
-      sid        = "AllowSNSInvokeFunction"
-      principal  = "sns"
-      source_arn = dependency.sns_default_topic.outputs.topic_arn
-    }
-  ]
 
   event_source_list = [
     {
