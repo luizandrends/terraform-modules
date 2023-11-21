@@ -72,7 +72,9 @@ No requirements.
 
 | Name | Type |
 |------|------|
+| [aws_lambda_permission.allow_sns_subscription_on_lambda](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_permission) | resource |
 | [aws_sns_topic.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic) | resource |
+| [aws_sns_topic_subscription.lambda_subscriptions](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic_subscription) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.sns_topic_default_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
@@ -90,10 +92,10 @@ No requirements.
 | <a name="input_environment"></a> [environment](#input\_environment) | The resource's environment | `string` | n/a | yes |
 | <a name="input_fifo_topic"></a> [fifo\_topic](#input\_fifo\_topic) | Boolean indicating whether or not to create a FIFO (first-in-first-out) topic | `bool` | `false` | no |
 | <a name="input_kms_master_key_id"></a> [kms\_master\_key\_id](#input\_kms\_master\_key\_id) | The ID of an AWS-managed customer master key (CMK) for Amazon SNS or a custom CMK | `string` | `null` | no |
+| <a name="input_lambda_subscriptions"></a> [lambda\_subscriptions](#input\_lambda\_subscriptions) | List of lambda functions to subscribe | `any` | `[]` | no |
 | <a name="input_name"></a> [name](#input\_name) | The name of the resource | `string` | n/a | yes |
 | <a name="input_policy"></a> [policy](#input\_policy) | The text of the policy. Although this is a bucket policy rather than an IAM policy, the aws\_iam\_policy\_document data source may be used, so long as it specifies a principal. For more information about building AWS IAM policy documents with Terraform, see the AWS IAM Policy Document Guide. Note: Bucket policies are limited to 20 KB in size. | `list(any)` | `[]` | no |
 | <a name="input_team"></a> [team](#input\_team) | The squad that owns the resource | `string` | n/a | yes |
-| <a name="input_test_docs"></a> [test\_docs](#input\_test\_docs) | The text of the policy. Although this is a bucket policy rather than an IAM policy, the aws\_iam\_policy\_document data source may be used, so long as it specifies a principal. For more information about building AWS IAM policy documents with Terraform, see the AWS IAM Policy Document Guide. Note: Bucket policies are limited to 20 KB in size. | `list(any)` | `[]` | no |
 | <a name="input_tracing_config"></a> [tracing\_config](#input\_tracing\_config) | Tracing mode of an Amazon SNS topic. Valid values: PassThrough, Active. | `string` | `null` | no |
 
 ## Outputs
