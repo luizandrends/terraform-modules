@@ -1,3 +1,6 @@
+data "aws_caller_identity" "current" {}
+data "aws_region" "current" {}
+
 data "aws_iam_policy_document" "default_lambda_role" {
   dynamic "statement" {
     for_each = var.create ? [1] : []
@@ -58,6 +61,20 @@ data "aws_iam_policy_document" "default_lambda_policy" {
         "arn:aws:logs:*:*:log-group:*${module.tags.default_name}*:log-stream:*",
         "arn:aws:logs:*:*:log-group:*${module.tags.default_name}*"
       ]
+    }
+  }
+}
+
+data "aws_iam_policy_document" "lambda_managed_policies" {
+
+  dynamic "statement" {
+    for_each = { for k, v in var.policy : k => v if var.create == true && length(var.policy) > 0 }
+
+    content {
+      sid       = statement.value.sid
+      effect    = statement.value.effect
+      actions   = statement.value.actions
+      resources = statement.value.resources
     }
   }
 }
