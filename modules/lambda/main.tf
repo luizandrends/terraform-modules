@@ -97,20 +97,6 @@ resource "aws_cloudwatch_log_group" "lambda_fuction_cw_log_group" {
   kms_key_id        = var.cloudwatch_logs_kms_key_id
 }
 
-resource "aws_lambda_permission" "lambda_permissions" {
-  for_each = { for k, v in var.lambda_permissions : k => v if length(var.lambda_permissions) > 0 && var.create == true }
-
-  function_name = aws_lambda_function.this[0].arn
-
-  statement_id       = try(each.value.statement_id, null)
-  action             = "lambda:InvokeFunction"
-  principal          = try("${each.value.principal}.amazonaws.com", "*.amazonaws.com")
-  principal_org_id   = try(each.value.principal_org_id, null)
-  source_arn         = try(each.value.source_arn, null)
-  source_account     = try(each.value.source_account, null)
-  event_source_token = try(each.value.event_source_token, null)
-}
-
 resource "aws_lambda_event_source_mapping" "event_source_list" {
   for_each = { for k, v in var.event_source_list : k => v if length(var.event_source_list) > 0 && var.create == true }
 
