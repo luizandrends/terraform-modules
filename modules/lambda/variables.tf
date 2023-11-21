@@ -96,12 +96,6 @@ variable "cloudwatch_logs_kms_key_id" {
   default     = null
 }
 
-variable "lambda_permissions" {
-  description = "Map of Lambda permissions"
-  type        = list(any)
-  default     = []
-}
-
 variable "policy" {
   description = "Map of allowed triggers to create Lambda permissions"
   type        = any
