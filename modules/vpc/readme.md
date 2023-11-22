@@ -21,6 +21,10 @@ No requirements.
 | Name | Type |
 |------|------|
 | [aws_default_security_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/default_security_group) | resource |
+| [aws_eip.default_vpc_eip](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip) | resource |
+| [aws_internet_gateway.vpc_default_internet_gateway](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/internet_gateway) | resource |
+| [aws_nat_gateway.default_vpc_nat](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/nat_gateway) | resource |
+| [aws_route.nat_route_internet](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route) | resource |
 | [aws_route_table.private_subnets_route_table](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table) | resource |
 | [aws_route_table_association.private_subnet_route_table](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table_association) | resource |
 | [aws_subnet.private_subnets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet) | resource |
