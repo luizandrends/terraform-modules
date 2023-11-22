@@ -86,8 +86,14 @@ resource "aws_default_security_group" "this" {
   tags = module.tags.default_vpc_sg_tags
 }
 
+resource "aws_internet_gateway" "vpc_default_internet_gateway" {
+  count = local.create_vpc ? 1 : 0
+
+  vpc_id = aws_vpc.this[0].id
+}
+
 resource "aws_subnet" "private_subnets" {
-  for_each = { for k, v in var.private_subnets : k => v }
+  for_each = { for k, v in var.private_subnets : k => v if local.create_vpc == true && length(var.private_subnets) > 0 }
 
   vpc_id                  = aws_vpc.this[0].id
   map_public_ip_on_launch = false
@@ -97,12 +103,32 @@ resource "aws_subnet" "private_subnets" {
   tags = module.private_subnet_tags.default_vpc_subnet_tags
 }
 
+resource "aws_eip" "default_vpc_eip" {
+  count  = local.create_vpc == true && length(var.private_subnets) > 0 ? 1 : 0
+  domain = "vpc"
+}
+
+resource "aws_nat_gateway" "default_vpc_nat" {
+  count = local.create_vpc == true && length(var.private_subnets) > 0 ? 1 : 0
+
+  allocation_id = aws_eip.default_vpc_eip[0].allocation_id
+  subnet_id     = aws_subnet.private_subnets[0].id
+}
+
 resource "aws_route_table" "private_subnets_route_table" {
   count = local.create_vpc && length(var.private_subnets) > 0 ? 1 : 0
 
   vpc_id = aws_vpc.this[0].id
 
   tags = module.private_subnet_tags.default_vpc_rt_tags
+}
+
+resource "aws_route" "nat_route_internet" {
+  count = local.create_vpc == true && length(var.private_subnets) > 0 ? 1 : 0
+
+  route_table_id         = aws_route_table.private_subnets_route_table[0].id
+  nat_gateway_id         = aws_nat_gateway.default_vpc_nat[0].id
+  destination_cidr_block = "0.0.0.0/0"
 }
 
 resource "aws_route_table_association" "private_subnet_route_table" {
