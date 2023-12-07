@@ -14,6 +14,7 @@ No requirements.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_private_subnet_tags"></a> [private\_subnet\_tags](#module\_private\_subnet\_tags) | git@github.com:luizandrends/terraform-modules.git//modules/tags | v1.9.0 |
+| <a name="module_public_subnet_tags"></a> [public\_subnet\_tags](#module\_public\_subnet\_tags) | git@github.com:luizandrends/terraform-modules.git//modules/tags | v1.9.0 |
 | <a name="module_tags"></a> [tags](#module\_tags) | git@github.com:luizandrends/terraform-modules.git//modules/tags | v1.9.0 |
 
 ## Resources
@@ -24,10 +25,14 @@ No requirements.
 | [aws_eip.default_vpc_eip](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip) | resource |
 | [aws_internet_gateway.vpc_default_internet_gateway](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/internet_gateway) | resource |
 | [aws_nat_gateway.default_vpc_nat](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/nat_gateway) | resource |
+| [aws_route.igw_route_internet](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route) | resource |
 | [aws_route.nat_route_internet](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route) | resource |
 | [aws_route_table.private_subnets_route_table](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table) | resource |
+| [aws_route_table.public_subnets_route_table](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table) | resource |
 | [aws_route_table_association.private_subnet_route_table](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table_association) | resource |
+| [aws_route_table_association.public_subnet_route_table](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table_association) | resource |
 | [aws_subnet.private_subnets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet) | resource |
+| [aws_subnet.public_subnets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet) | resource |
 | [aws_vpc.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc) | resource |
 
 ## Inputs
@@ -48,6 +53,8 @@ No requirements.
 | <a name="input_name"></a> [name](#input\_name) | The name of the resource | `string` | n/a | yes |
 | <a name="input_private_subnet_additional_tags"></a> [private\_subnet\_additional\_tags](#input\_private\_subnet\_additional\_tags) | A map containing private subnet additional tags | `map(any)` | `{}` | no |
 | <a name="input_private_subnets"></a> [private\_subnets](#input\_private\_subnets) | List of maps of VPC's subnets to associate | `list(map(string))` | `[]` | no |
+| <a name="input_public_subnet_additional_tags"></a> [public\_subnet\_additional\_tags](#input\_public\_subnet\_additional\_tags) | A map containing private subnet additional tags | `map(any)` | `{}` | no |
+| <a name="input_public_subnets"></a> [public\_subnets](#input\_public\_subnets) | List of maps of VPC's subnets to associate | `list(map(string))` | `[]` | no |
 | <a name="input_team"></a> [team](#input\_team) | The squad that owns the resource | `string` | n/a | yes |
 
 ## Outputs

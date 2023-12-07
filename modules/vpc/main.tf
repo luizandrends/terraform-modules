@@ -36,6 +36,17 @@ module "private_subnet_tags" {
   additional_tags = var.private_subnet_additional_tags
 }
 
+module "public_subnet_tags" {
+  source = "git@github.com:luizandrends/terraform-modules.git//modules/tags?ref=v1.9.0"
+
+  name            = "${var.name}-public"
+  environment     = var.environment
+  application     = var.application
+  team            = var.team
+  aws_object      = "subnet"
+  additional_tags = var.public_subnet_additional_tags
+}
+
 resource "aws_vpc" "this" {
   count = local.create_vpc ? 1 : 0
 
@@ -136,4 +147,38 @@ resource "aws_route_table_association" "private_subnet_route_table" {
 
   subnet_id      = aws_subnet.private_subnets[each.key].id
   route_table_id = aws_route_table.private_subnets_route_table[0].id
+}
+
+resource "aws_subnet" "public_subnets" {
+  for_each = { for k, v in var.public_subnets : k => v if local.create_vpc == true && length(var.public_subnets) > 0 }
+
+  vpc_id                  = aws_vpc.this[0].id
+  map_public_ip_on_launch = false
+  cidr_block              = each.value.cidr_block
+  availability_zone       = each.value.availability_zone
+
+  tags = module.public_subnet_tags.default_vpc_subnet_tags
+}
+
+resource "aws_route_table" "public_subnets_route_table" {
+  count = local.create_vpc && length(var.public_subnets) > 0 ? 1 : 0
+
+  vpc_id = aws_vpc.this[0].id
+
+  tags = module.public_subnet_tags.default_vpc_subnet_tags
+}
+
+resource "aws_route" "igw_route_internet" {
+  count = local.create_vpc == true && length(var.public_subnets) > 0 ? 1 : 0
+
+  route_table_id         = aws_route_table.public_subnets_route_table[0].id
+  gateway_id             = aws_internet_gateway.vpc_default_internet_gateway[0].id
+  destination_cidr_block = "0.0.0.0/0"
+}
+
+resource "aws_route_table_association" "public_subnet_route_table" {
+  for_each = { for k, v in var.public_subnets : k => v }
+
+  subnet_id      = aws_subnet.public_subnets[each.key].id
+  route_table_id = aws_route_table.public_subnets_route_table[0].id
 }
