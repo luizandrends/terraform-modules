@@ -78,3 +78,22 @@ data "aws_iam_policy_document" "lambda_managed_policies" {
     }
   }
 }
+
+data "aws_vpc" "services_vpc" {
+  tags = {
+    services_vpc = "true"
+  }
+}
+
+data "aws_subnets" "services_subnet" {
+  filter {
+    name   = "tag:services_subnet"
+    values = ["true"]
+  }
+
+  filter {
+    name   = "availability-zone"
+    values = ["us-east-1a", "us-east-1b", "us-east-1c"]
+  }
+}
+
