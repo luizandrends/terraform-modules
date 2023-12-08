@@ -1,3 +1,18 @@
+locals {
+  default_security_groups_rules = [
+    {
+      from_port   = "0",
+      to_port     = "65535",
+      protocol    = "all",
+      cidr_block  = "0.0.0.0/0",
+      type        = "egress",
+      description = "Allow egress to all protocols in all ports",
+    }
+  ]
+
+  security_group_rules = concat(local.default_security_groups_rules, var.sg_rules)
+}
+
 module "tags" {
   source = "git@github.com:luizandrends/terraform-modules.git//modules/tags?ref=v1.9.0"
 
@@ -7,6 +22,29 @@ module "tags" {
   team            = var.team
   aws_object      = "lambda"
   additional_tags = var.additional_tags
+}
+
+resource "aws_security_group" "default_security_group" {
+  count = var.create && length(var.sg_rules) > 0 ? 1 : 0
+
+  vpc_id      = data.aws_vpc.services_vpc.id
+  name        = "${var.name}-lambda-default-sg"
+  description = "SG for ${module.tags.default_name}"
+  tags        = module.tags.default_tags
+}
+
+resource "aws_security_group_rule" "security_groups_rules" {
+  for_each = { for k, v in local.security_group_rules : k => v if length(var.sg_rules) > 0 }
+
+  description       = each.value.description
+  from_port         = each.value.from_port
+  to_port           = each.value.to_port
+  protocol          = each.value.protocol
+  cidr_blocks       = [each.value.cidr_block]
+  security_group_id = aws_security_group.default_security_group[0].id
+  type              = each.value.type
+
+  depends_on = [aws_security_group.default_security_group]
 }
 
 resource "aws_iam_policy" "lambda_default_policy" {
@@ -77,13 +115,9 @@ resource "aws_lambda_function" "this" {
   reserved_concurrent_executions = var.reserved_concurrent_executions
   filename                       = var.filename
 
-  dynamic "vpc_config" {
-    for_each = var.vpc_subnet_ids != null && var.vpc_security_group_ids != null ? [true] : []
-
-    content {
-      security_group_ids = var.vpc_security_group_ids
-      subnet_ids         = var.vpc_subnet_ids
-    }
+  vpc_config {
+    subnet_ids         = length(var.vpc_subnet_ids) <= 0 ? data.aws_subnets.services_subnet.ids : var.vpc_subnet_ids
+    security_group_ids = length(var.vpc_security_group_ids) <= 0 ? [aws_security_group.default_security_group[0].id] : var.vpc_security_group_ids
   }
 
   tags = module.tags.default_tags

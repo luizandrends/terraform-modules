@@ -69,13 +69,13 @@ variable "reserved_concurrent_executions" {
 variable "vpc_subnet_ids" {
   description = "List of subnet ids when Lambda Function should run in the VPC. Usually private or intra subnets."
   type        = list(string)
-  default     = null
+  default     = []
 }
 
 variable "vpc_security_group_ids" {
   description = "List of security group ids when Lambda Function should run in the VPC."
   type        = list(string)
-  default     = null
+  default     = []
 }
 
 variable "filename" {
@@ -104,6 +104,12 @@ variable "policy" {
 
 variable "event_source_list" {
   description = "Map of allowed event_source_list"
+  type        = list(any)
+  default     = []
+}
+
+variable "sg_rules" {
+  description = "Rules for the security groups"
   type        = list(any)
   default     = []
 }
