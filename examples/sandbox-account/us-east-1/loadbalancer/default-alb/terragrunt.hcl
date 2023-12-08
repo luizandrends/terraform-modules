@@ -31,7 +31,7 @@ inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
   lambda_subscriptions = [
     {
       sid        = "allowlbaccess"
-      lambda_arn = "arn:aws:lambda:us-east-1:035267315123:function:aws-lambda-custom-net-function-use1-dev"
+      lambda_arn = ""
       port       = "80"
       protocol   = "HTTP"
     },
