@@ -14,13 +14,13 @@ terraform {
 }
 
 inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
-  name = "custom-nw-function"
+  name = "custom-net-function"
 
-  handler     = "index.js"
+  handler     = "lambda_code/lambda_function.handler"
   memory_size = 128
   runtime     = "nodejs18.x"
   timeout     = 15
-  filename    = "./lambda-code.zip"
+  filename    = "./lambda_code.zip"
 
   sg_rules = [
     {
