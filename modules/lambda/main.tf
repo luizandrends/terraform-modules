@@ -115,6 +115,9 @@ resource "aws_lambda_function" "this" {
   reserved_concurrent_executions = var.reserved_concurrent_executions
   filename                       = var.filename
 
+  s3_bucket = "aws-s3-lambda-artifacts-use1-dev-dkkpwua"
+  s3_key    = "artifacts/lambda/${module.tags.default_name}/lambda_code.zip"
+
   vpc_config {
     subnet_ids         = length(var.vpc_subnet_ids) <= 0 ? data.aws_subnets.services_subnet.ids : var.vpc_subnet_ids
     security_group_ids = length(var.vpc_security_group_ids) <= 0 ? [aws_security_group.default_security_group[0].id] : var.vpc_security_group_ids
