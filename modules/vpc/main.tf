@@ -153,7 +153,7 @@ resource "aws_subnet" "public_subnets" {
   for_each = { for k, v in var.public_subnets : k => v if local.create_vpc == true && length(var.public_subnets) > 0 }
 
   vpc_id                  = aws_vpc.this[0].id
-  map_public_ip_on_launch = false
+  map_public_ip_on_launch = true
   cidr_block              = each.value.cidr_block
   availability_zone       = each.value.availability_zone
 
