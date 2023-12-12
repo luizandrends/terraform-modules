@@ -1,3 +1,5 @@
+data "aws_region" "current" {}
+
 locals {
   create_vpc = var.create_vpc
 
@@ -181,4 +183,36 @@ resource "aws_route_table_association" "public_subnet_route_table" {
 
   subnet_id      = aws_subnet.public_subnets[each.key].id
   route_table_id = aws_route_table.public_subnets_route_table[0].id
+}
+
+resource "aws_vpc_endpoint" "s3_endpoint" {
+  count = local.create_vpc == true ? 1 : 0
+
+  vpc_id          = aws_vpc.this[0].id
+  service_name    = "com.amazonaws.${data.aws_region.current.name}.s3"
+  route_table_ids = [aws_route_table.public_subnets_route_table[0].id, aws_route_table.private_subnets_route_table[0].id]
+}
+
+resource "aws_vpc_endpoint" "dynamodb_endpoint" {
+  count = local.create_vpc == true ? 1 : 0
+
+  vpc_id          = aws_vpc.this[0].id
+  service_name    = "com.amazonaws.${data.aws_region.current.name}.dynamodb"
+  route_table_ids = [aws_route_table.public_subnets_route_table[0].id, aws_route_table.private_subnets_route_table[0].id]
+}
+
+resource "aws_vpc_endpoint" "sqs_endpoint" {
+  count = local.create_vpc == true ? 1 : 0
+
+  vpc_id          = aws_vpc.this[0].id
+  service_name    = "com.amazonaws.${data.aws_region.current.name}.sqs"
+  route_table_ids = [aws_route_table.public_subnets_route_table[0].id, aws_route_table.private_subnets_route_table[0].id]
+}
+
+resource "aws_vpc_endpoint" "sns_endpoint" {
+  count = local.create_vpc == true ? 1 : 0
+
+  vpc_id          = aws_vpc.this[0].id
+  service_name    = "com.amazonaws.${data.aws_region.current.name}.sns"
+  route_table_ids = [aws_route_table.public_subnets_route_table[0].id, aws_route_table.private_subnets_route_table[0].id]
 }
