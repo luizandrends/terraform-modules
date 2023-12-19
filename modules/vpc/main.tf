@@ -151,14 +151,6 @@ resource "aws_route_table" "public_subnets_route_table" {
   tags = module.public_subnet_tags.default_vpc_subnet_tags
 }
 
-resource "aws_route" "igw_route_internet" {
-  count = local.create_vpc == true && length(var.public_subnets) > 0 ? 1 : 0
-
-  route_table_id         = aws_route_table.public_subnets_route_table[0].id
-  gateway_id             = aws_internet_gateway.vpc_default_internet_gateway[0].id
-  destination_cidr_block = "0.0.0.0/0"
-}
-
 resource "aws_eip" "default_vpc_eip" {
   count  = local.create_vpc == true && length(var.public_subnets) > 0 ? 1 : 0
   domain = "vpc"
