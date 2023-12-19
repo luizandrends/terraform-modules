@@ -116,18 +116,6 @@ resource "aws_subnet" "private_subnets" {
   tags = module.private_subnet_tags.default_vpc_subnet_tags
 }
 
-resource "aws_eip" "default_vpc_eip" {
-  count  = local.create_vpc == true && length(var.private_subnets) > 0 ? 1 : 0
-  domain = "vpc"
-}
-
-resource "aws_nat_gateway" "default_vpc_nat" {
-  count = local.create_vpc == true && length(var.private_subnets) > 0 ? 1 : 0
-
-  allocation_id = aws_eip.default_vpc_eip[0].allocation_id
-  subnet_id     = aws_subnet.private_subnets[0].id
-}
-
 resource "aws_route_table" "private_subnets_route_table" {
   count = local.create_vpc && length(var.private_subnets) > 0 ? 1 : 0
 
@@ -136,13 +124,6 @@ resource "aws_route_table" "private_subnets_route_table" {
   tags = module.private_subnet_tags.default_vpc_rt_tags
 }
 
-resource "aws_route" "nat_route_internet" {
-  count = local.create_vpc == true && length(var.private_subnets) > 0 ? 1 : 0
-
-  route_table_id         = aws_route_table.private_subnets_route_table[0].id
-  nat_gateway_id         = aws_nat_gateway.default_vpc_nat[0].id
-  destination_cidr_block = "0.0.0.0/0"
-}
 
 resource "aws_route_table_association" "private_subnet_route_table" {
   for_each = { for k, v in var.private_subnets : k => v }
@@ -178,25 +159,29 @@ resource "aws_route" "igw_route_internet" {
   destination_cidr_block = "0.0.0.0/0"
 }
 
+resource "aws_eip" "default_vpc_eip" {
+  count  = local.create_vpc == true && length(var.public_subnets) > 0 ? 1 : 0
+  domain = "vpc"
+}
+
+resource "aws_nat_gateway" "default_vpc_nat" {
+  count = local.create_vpc == true && length(var.public_subnets) > 0 ? 1 : 0
+
+  allocation_id = aws_eip.default_vpc_eip[0].allocation_id
+  subnet_id     = aws_subnet.public_subnets[0].id
+}
+
+resource "aws_route" "nat_route_internet" {
+  count = local.create_vpc == true && length(var.public_subnets) > 0 ? 1 : 0
+
+  route_table_id         = aws_route_table.public_subnets_route_table[0].id
+  nat_gateway_id         = aws_nat_gateway.default_vpc_nat[0].id
+  destination_cidr_block = "0.0.0.0/0"
+}
+
 resource "aws_route_table_association" "public_subnet_route_table" {
   for_each = { for k, v in var.public_subnets : k => v }
 
   subnet_id      = aws_subnet.public_subnets[each.key].id
   route_table_id = aws_route_table.public_subnets_route_table[0].id
-}
-
-resource "aws_vpc_endpoint" "s3_endpoint" {
-  count = local.create_vpc == true ? 1 : 0
-
-  vpc_id          = aws_vpc.this[0].id
-  service_name    = "com.amazonaws.${data.aws_region.current.name}.s3"
-  route_table_ids = [aws_route_table.public_subnets_route_table[0].id, aws_route_table.private_subnets_route_table[0].id]
-}
-
-resource "aws_vpc_endpoint" "dynamodb_endpoint" {
-  count = local.create_vpc == true ? 1 : 0
-
-  vpc_id          = aws_vpc.this[0].id
-  service_name    = "com.amazonaws.${data.aws_region.current.name}.dynamodb"
-  route_table_ids = [aws_route_table.public_subnets_route_table[0].id, aws_route_table.private_subnets_route_table[0].id]
 }
