@@ -1,8 +1,7 @@
 remote_state {
   backend = "s3"
   config = {
-    bucket         = "library-sandbox-tests-state-bucket"
-    dynamodb_table = "library-sandbox-tests-state-table"
+    bucket         = "library-tf-state-371565184611"
     key            = "tags-example/${path_relative_to_include()}"
     region         = "us-east-1"
     encrypt        = true
