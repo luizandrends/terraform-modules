@@ -73,7 +73,4 @@ No modules.
 |------|-------------|
 | <a name="output_default_name"></a> [default\_name](#output\_default\_name) | Represents the resource's parsed name |
 | <a name="output_default_tags"></a> [default\_tags](#output\_default\_tags) | Represents all the tags within the project |
-| <a name="output_default_vpc_rt_tags"></a> [default\_vpc\_rt\_tags](#output\_default\_vpc\_rt\_tags) | Represents the resource's parsed name |
-| <a name="output_default_vpc_sg_tags"></a> [default\_vpc\_sg\_tags](#output\_default\_vpc\_sg\_tags) | Represents the resource's parsed name |
-| <a name="output_default_vpc_subnet_tags"></a> [default\_vpc\_subnet\_tags](#output\_default\_vpc\_subnet\_tags) | Represents the resource's parsed name |
 <!-- END_TF_DOCS -->
