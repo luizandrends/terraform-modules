@@ -3,16 +3,6 @@ data "aws_region" "current" {}
 locals {
   create_vpc = var.create_vpc
 
-  sg_default_egress_rules = [
-    {
-      from_port   = "0",
-      to_port     = "0",
-      protocol    = "all",
-      cidr_blocks = "0.0.0.0/0",
-      description = "Allow egress to all protocols in all ports",
-    }
-  ]
-
   sg_egress_rules = concat(local.sg_default_egress_rules, var.default_security_group_egress)
 }
 
