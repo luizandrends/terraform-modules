@@ -28,6 +28,7 @@ locals {
 
   environment_options = {
     dev = "dev"
+    hml = "hml"
     prd = "prd"
   }
 
